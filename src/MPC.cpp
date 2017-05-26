@@ -30,7 +30,7 @@ const double Lf = 2.67;
 
 double ref_cte = 0;
 double ref_epsi = 0;
-double ref_v = 80; //the speed limit
+double ref_v = 70; //the speed limit  
 
 // indexes
 size_t x_start = 0;
@@ -68,7 +68,7 @@ public:
         // captures the difference between the next actuator state and the current one:
         for (int i = 0; i < N - 2; i++) {
             cost += 1000 * CppAD::pow(vars[delta_start + i + 1] - vars[delta_start + i], 2);
-            cost += 1000 *CppAD::pow(vars[a_start + i + 1] - vars[a_start + i], 2);
+            cost += 100 *CppAD::pow(vars[a_start + i + 1] - vars[a_start + i], 2);
         }
         fg[0] = cost;
 // ------------------------------

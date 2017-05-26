@@ -93,6 +93,7 @@ int main() {
                     Eigen::VectorXd yvals = Eigen::VectorXd(6);
                     yvals.fill(0);
 
+                    // convert to car's coordinates
                     for (int i = 0; i < ptsx.size(); i++) {
                         double x = ptsx[i] - px;
                         double y = ptsy[i] - py;

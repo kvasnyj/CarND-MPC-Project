@@ -87,33 +87,35 @@ int main() {
                     double psi = j[1]["psi"];
                     double v = j[1]["speed"];
 
-                    /*
-                    * TODO: Calculate steeering angle and throttle using MPC.
-                    *
-                    * Both are in between [-1, 1].
-                    *
-                    */
+
+                    Eigen::VectorXd xvals = Eigen::VectorXd(6);
+                    xvals.fill(0);
+                    Eigen::VectorXd yvals = Eigen::VectorXd(6);
+                    yvals.fill(0);
 
                     for (int i = 0; i < ptsx.size(); i++) {
                         double x = ptsx[i] - px;
                         double y = ptsy[i] - py;
-                        ptsx[i] = x * cos(-psi) - y * sin(-psi);
-                        ptsy[i] = x * sin(-psi) + y * cos(-psi);
+                        xvals[i] = x * cos(-psi) - y * sin(-psi);
+                        yvals[i] = x * sin(-psi) + y * cos(-psi);
                     }
 
-                    auto ptsxn = Eigen::VectorXd::Map(ptsx.data(), ptsx.size());
-                    auto ptsyn = Eigen::VectorXd::Map(ptsy.data(), ptsy.size());
+                    // in local coordinate
+                    px = 0;
+                    py = 0;
+                    psi = 0;
+
                     // fit a third order polynomial to reference points
-                    auto coeffs = polyfit(ptsxn, ptsyn, 3);
+                    auto coeffs = polyfit(xvals, yvals, 3);
                     // calculate the cross track error
                     auto cte = polyeval(coeffs, px) - py;
                     // calculate the orientation error
-                    auto epsi = psi - atan(coeffs[1] + (2 * coeffs[2] * px) + (3 * coeffs[3]* (px*px)));
+                    auto epsi = psi - atan(coeffs[1] + (2 * coeffs[2] * px) + (3 * coeffs[3] * (px * px)));
 
                     Eigen::VectorXd state(6);
                     state << px, py, psi, v, cte, epsi;
 
-                    // SOLVE
+                    // Calculate steeering angle and throttle using MPC.
                     auto vars = mpc.Solve(state, coeffs);
 
                     double steer_value = vars[0];

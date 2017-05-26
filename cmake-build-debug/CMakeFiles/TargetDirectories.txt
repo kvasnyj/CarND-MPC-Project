@@ -1,0 +1,3 @@
+/home/kvasnyj/Dropbox/5.MPC/CarND-MPC-Project/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/kvasnyj/Dropbox/5.MPC/CarND-MPC-Project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/kvasnyj/Dropbox/5.MPC/CarND-MPC-Project/cmake-build-debug/CMakeFiles/mpc.dir

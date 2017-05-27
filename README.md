@@ -17,6 +17,8 @@ Self-Driving Car Engineer Nanodegree Program
 6. 1000 points for change steering angle
 7. 100 points for change acceleration
 
+Most points are compromize between speed and smoothing. Also smaller latency allow to increase speed. 
+
 ## Algorythm
 1. Convert into local coordninate
 2. Make state vector (x, y, psi, v, cte, epsi) and actuators vector (steering, acceleration)
